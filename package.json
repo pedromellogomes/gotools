@@ -1,6 +1,9 @@
 {
 	"name": "gotools",
-	"version": "1.0.0",
+    "version": "1.0.0",
+    "license": "MIT",
+    "description": "A Svelte project for Pokemon GO Community",
+    "repository": "https://github.com/pedromellogomes/gotools",
 	"scripts": {
 		"build": "rollup -c",
 		"dev": "rollup -c -w",
