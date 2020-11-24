@@ -1,89 +1,76 @@
 <script>
-	import SearchPokemon from "./components/SearchPokemon.svelte";
-	import IvInput from "./components/IvInput.svelte";
-	import Ranking from "./components/Ranking.svelte";
-
-	let pokemon;
-	let iv = { atk: 0, def: 15, sta: 15 };
-	let league = 1500;
-
-	$: ranking = calcRanking(pokemon, league);
-	function calcRanking(pokemon, league) {
-		return [{}];
-	}
-
-	$: position = calcPosition(ranking, iv);
-	function calcPosition(rangkin, iv) {
-		return {};
-	};
-	
+    import SearchPokemon from "./components/SearchPokemon.svelte";
+    import IvInput from "./components/IvInput.svelte";
+    import LeagueInput from "./components/LeagueInput.svelte";
+    import Rank from "./components/Rank.svelte";
+    import RankPosition from "./components/RankPosition.svelte";
 </script>
 
 <main>
-	<header>
-	</header>
-	<aside>
-
-	</aside>
-	<section>
-		<SearchPokemon bind:value={pokemon} />
-		<IvInput bind:value={iv} />
-		<Ranking />
-	</section>
-	<footer>
-	</footer>
+    <h1>GO Tools</h1>
+    <section>
+        <div class="data-input">
+            <SearchPokemon />
+            <IvInput />
+            <LeagueInput />
+        </div>
+        <div class="position">
+            <RankPosition />
+        </div>
+        <div class="rank">
+            <Rank />
+        </div>
+    </section>
 </main>
 
 
 
 <style>
+    :root {
+        --white: #fafafa;
+        --black: #333533;
+    }
 	:global(body) {
-		padding: 0;
-		color: white; /* color: #f15252; */ 
-		background-color: #2c2f33;
+        font-family: 'Rubik', sans-serif;
+        background-color: var(--black);
+        padding: 0;
 	}
 
-	main {
-		display: grid;
-		height: 100%;
-		grid-gap: 10px;
-		justify-items: center;
-		align-items: center;
-		grid-template-columns: 1fr 4fr 1fr;
-		grid-template-rows: 1fr 6fr 1fr;
-		grid-template-areas:
-            "nav nav nav"
-            "aside1 content aside2"
-            "aside1 content aside2";
-	}
+    main {
+        text-align: center;
+    }
 
-	header {
-		background-color: green;
-		grid-area: nav;
-	}
+    h1 {
+        color: var(--white);
+        font-size: 3em;
+    }
 
-	aside {
-		background-color: blue;
-		grid-area: aside1;
-	}	
-	section {
-		grid-area: content;
-	}
+    section {
+        display: grid;
+        justify-items: center;
+        grid-template-columns: 2fr 1fr 2fr;
+        grid-template-rows: 1fr;
+    }
 
-	footer {
-		background-color: darkslateblue;
-		grid-area: aside2;
-	}
+    .data-input {
+        padding: 10px 40px 10px;
+        border-radius: 10px;
+        background-color: var(--white);
+        justify-self: end;
+    }
 
+    .rank {
+        justify-self: start;
+    }
 	@media(max-width: 800px) {
-		main {
-			grid-template-columns: 1fr;
-			grid-template-rows: 1fr 1fr 6fr 1fr;
-			grid-template-areas:
-            "nav"
-            "aside1"
-            "content"
-			"aside2";
-		}
+        section {
+            grid-template-columns: 1fr;
+        }
+        .data-input {
+            justify-self: center;
+        }
+        .rank {
+           justify-self: center;
+        }
 	}
 </style>

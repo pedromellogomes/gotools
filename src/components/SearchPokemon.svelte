@@ -1,46 +1,51 @@
-<script lang="ts">
-    import { pokemons } from "../data/Pokemons";
-    export let value = undefined;
+<script>
+    import { pokeList } from '../data/data';
+	import { Pokemon } from '../store';
+	import { pokeAPI } from '../services/go-service';
 
-	
-	let name = 'Azumarill';
-	$: if(name !== "") {
-		fetch(`https://pokeapi.co/api/v2/pokemon/${name.toLowerCase()}`)
-		.then(async (res) => {
-			value = await res.json()
-		}).catch(async (err) => undefined);
+	let src, name;
+	Pokemon.subscribe(value => {
+		src = value.sprites.front_default;
+		name = value.name;
+	});
+
+	function handleChange(e) {
+		let found = pokeList.find(pokemon => pokemon.name === e.target.value);
+		if(found) pokeAPI(found.name).then(value => Pokemon.set(value));
 	}
 </script>
 
-<main>
-	{#if value}
-		<img src="{value.sprites.front_default}" alt="pokemon"/>
+<section>
+	{#if $Pokemon}
+		<img {src} alt="pokemon"/>
 	{:else}
 		<p>
-			NaN	
+			Loading...
 		</p>
 	{/if}
-	<input list="poke-list" type="text" bind:value={name} />
+	<input list="poke-list" type="text" bind:value={name} on:change={handleChange}/>
 	<datalist id="poke-list">
-		{#each pokemons as poke}
+		{#each pokeList as poke}
 			<option value="{poke.name}">{poke.full_name}</option>
 		{/each}
 	</datalist>
-</main>
+</section>
 
 <style>
-	main {
+	section {
 		display: grid;
 		grid-template-columns: 1fr;
 		grid-template-rows: 2fr 1fr;
 	}
-	
+
 	img {
 		display: flex;
 		justify-self: center;
 	}
-	
+
 	input {
 		text-align: center;
 	}
+
+
 </style>
