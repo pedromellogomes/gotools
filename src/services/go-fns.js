@@ -12,7 +12,7 @@ import { round, floor, max } from 'mathjs';
  * stats[5] = speed;
  *
  */
-export function calcBaseStats(stats) {
+export function getBaseStats(stats) {
     const [higherDEF, lowerDEF] = (stats[2].base_stat > stats[4].base_stat) ?
         [stats[2].base_stat, stats[4].base_stat] : [stats[4].base_stat, stats[2].base_stat];
     const [higherATK, lowerATK] = (stats[1].base_stat > stats[3].base_stat) ?
@@ -40,13 +40,13 @@ export function sumStatsWithIv(baseStats, ivCombination) {
     return { ATK, DEF, STA };
 }
 
-export function calcCP(baseStats, ivCombination, CPM) {
+export function getCombatPower(baseStats, ivCombination, CPM) {
     const { ATK, DEF, STA } = sumStatsWithIv(baseStats, ivCombination);
 
     return max(10 , floor((ATK * (DEF**(1/2)) * (STA**(1/2)) * (CPM**2)) / 10 ));
 }
 
-export function baseStatsByLevel(baseStats, ivCombination, CPM) {
+export function getStatsAtLevel(baseStats, ivCombination, CPM) {
     let { ATK, DEF, STA } = sumStatsWithIv(baseStats, ivCombination);
 
     ATK = ATK * CPM;
@@ -56,8 +56,16 @@ export function baseStatsByLevel(baseStats, ivCombination, CPM) {
     return { ATK, DEF, STA };
 }
 
-export function calcStatsProduct(baseStats, ivCombination, CPM) {
-    const { ATK, DEF, STA } = baseStatsByLevel(baseStats, ivCombination, CPM);
+export function getShadowStats(baseStatsAtLevel) {
+    let { ATK, DEF, STA } = baseStatsAtLevel;
+    ATK = (ATK * 1.2).toFixed(2);
+    DEF = (DEF * 0.8).toFixed(2);
+
+    return { ATK, DEF, STA };
+}
+
+export function statProduct(baseStatsAtLevel) {
+    const { ATK, DEF, STA } = baseStatsAtLevel;
     return ATK  * DEF * STA;
 }
 
@@ -68,7 +76,7 @@ export function levelCap(baseStats, ivCombination, league, cpmArray) {
     const MAX_LEVEL = 78;
     let level, cp, index = 0;
     for (let i = MAX_LEVEL; i >= 0; i--) {
-        cp = calcCP(baseStats, ivCombination, cpmArray[i]);
+        cp = getCombatPower(baseStats, ivCombination, cpmArray[i]);
         if(cp <= league){
             index = i;
             level = (i / 2) + 1;

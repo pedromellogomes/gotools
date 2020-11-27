@@ -1,6 +1,6 @@
 import { writable, readable, derived, get } from 'svelte/store';
-import { calcRanking, getRankPosition } from './services/go-service';
-import { calcBaseStats } from './services/go-fns';
+import { getRank, getRankPosition } from './services/go-service';
+import { getBaseStats } from './services/go-fns';
 
 /** Interface */
 export const Leagues = { BABY: 500, GREAT: 1500, ULTRA: 2500 }
@@ -24,8 +24,8 @@ export const IV = writable({ ATK: 8, DEF: 15, STA: 15 });
 export const League = writable(Leagues.GREAT);
 
 export const Rank = derived([Pokemon, League], ([$Pokemon, $League]) => {
-    const _baseStats = calcBaseStats($Pokemon.stats);
-    return calcRanking(_baseStats, $League);
+    const _baseStats = getBaseStats($Pokemon.stats);
+    return getRank(_baseStats, $League);
 });
 
 export const Position = derived([Rank, IV], ([$Rank, $IV]) => {
