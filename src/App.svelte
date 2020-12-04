@@ -29,6 +29,9 @@
     :root {
         --white: #fafafa;
         --black: #333533;
+        --ligh-black: #43696C;
+        --grey: #A0B1B2;
+        --light-grey: #d8d8d8;
     }
 	:global(body) {
         font-family: 'Rubik', sans-serif;
@@ -53,7 +56,7 @@
     }
 
     .data-input {
-        padding: 10px 40px 10px;
+        padding: 10px 20px 10px;
         border-radius: 10px;
         background-color: var(--white);
         justify-self: end;
