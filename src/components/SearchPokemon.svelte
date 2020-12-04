@@ -20,9 +20,10 @@
 		<img {src} alt="pokemon"/>
 	{:else}
 		<p>
-			Loading...
+			<img src="whoisthispokemon.png" alt="pokemon"/>
 		</p>
-	{/if}
+    {/if}
+
 	<input list="poke-list" type="text" bind:value={name} on:change={handleChange}/>
 	<datalist id="poke-list">
 		{#each pokeList as poke}
@@ -34,8 +35,6 @@
 <style>
 	section {
 		display: grid;
-		grid-template-columns: 1fr;
-		grid-template-rows: 2fr 1fr;
 	}
 
 	img {
@@ -44,8 +43,18 @@
 	}
 
 	input {
-		text-align: center;
+        max-width: 170px;
+        padding-left: 15px;
+        padding-right: 15px;
+		justify-self: center;
+        color: var(--ligh-black);
+        text-align: center;
+        text-transform: capitalize;
+        font-weight: 500;
+        font-size: x-large;
+        border: none;
+        border-bottom: 5px solid #6DEEB8;
+        background-color: transparent;
 	}
-
 
 </style>

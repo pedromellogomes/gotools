@@ -1,4 +1,4 @@
-import { levelCap, baseStatsByLevel, calcStatsProduct } from './go-fns';
+import { levelCap, getStatsAtLevel, statProduct, getShadowStats } from './go-fns';
 import { ivCombinationList, cpMultiplierArray } from '../data/data';
 
 export const URL = 'https://pokeapi.co/api/v2';
@@ -28,12 +28,12 @@ export function evolutionChain(id) {
 /**
  * TODO: Rewrite this in a more elegant and efficient way.
  */
-export function calcRanking(baseStats, league) {
+export function getRank(baseStats, league) {
     let rank = [];
     for (let index = 0; index < ivCombinationList.length; index++) {
         let levelAndCP   = levelCap(baseStats, ivCombinationList[index], league, cpMultiplierArray)
-        let statsAtLevel = baseStatsByLevel(baseStats, ivCombinationList[index], cpMultiplierArray[levelAndCP.index])
-        let statsProduct = calcStatsProduct(baseStats, ivCombinationList[index], cpMultiplierArray[levelAndCP.index]);
+        let statsAtLevel = getStatsAtLevel(baseStats, ivCombinationList[index], cpMultiplierArray[levelAndCP.index])
+        let statsProduct = statProduct(statsAtLevel);
 
         rank.push({
             level: levelAndCP.level,
@@ -58,6 +58,8 @@ export function calcRanking(baseStats, league) {
 
 export function getRankPosition(rank, iv) {
     const index = rank.findIndex(position => JSON.stringify(position.iv) === JSON.stringify(iv));
-    const pokemon = rank[index];
+    const position = rank[index];
+    const shadow = getShadowStats(position.baseStats);
+    const pokemon = { ...position, shadowStats: shadow};
     return { pokemon, index };
 }
