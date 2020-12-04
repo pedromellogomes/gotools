@@ -1,9 +1,9 @@
 {
 	"name": "gotools",
-    "version": "1.0.1",
-    "license": "MIT",
-    "description": "A Svelte project for Pokemon GO Community",
-    "repository": "https://github.com/pedromellogomes/gotools",
+	"version": "1.0.1",
+	"license": "MIT",
+	"description": "A Svelte project for Pokemon GO Community",
+	"repository": "https://github.com/pedromellogomes/gotools",
 	"scripts": {
 		"build": "rollup -c",
 		"dev": "rollup -c -w",
@@ -19,7 +19,9 @@
 		"@commitlint/cli": "^11.0.0",
 		"@commitlint/config-conventional": "^11.0.0",
 		"@rollup/plugin-commonjs": "^14.0.0",
+		"@rollup/plugin-json": "^4.1.0",
 		"@rollup/plugin-node-resolve": "^8.0.0",
+		"bootstrap-icons": "^1.1.0",
 		"commitizen": "^4.2.2",
 		"cz-conventional-changelog": "^3.3.0",
 		"husky": "^4.3.0",
