@@ -3,7 +3,7 @@
     import IvInput from "./components/IvInput.svelte";
     import LeagueInput from "./components/LeagueInput.svelte";
     import Rank from "./components/Rank.svelte";
-    import RankPosition from "./components/RankPosition.svelte";
+    import PokemonCard from "./components/Card/PokemonCard.svelte";
 </script>
 
 <main>
@@ -15,7 +15,7 @@
             <LeagueInput />
         </div>
         <div class="position">
-            <RankPosition />
+            <PokemonCard />
         </div>
         <div class="rank">
             <Rank />
